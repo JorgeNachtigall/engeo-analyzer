@@ -1,1 +1,249 @@
-Testing public folder!
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>enGeo - Analyzer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" style="width: 75%;">
+        <canvas id="canvas"></canvas>
+    </div>
+    <input type="checkbox" name="totalAlunosAll"> Soma de todos os alunos matriculados <br>
+    <input type="checkbox" name="totalAlunosAprovados"> Soma de todos os alunos aprovados <br>
+    <input type="checkbox" name="totalAlunosReprovados"> Soma de todos os alunos reprovados <br>
+    <input type="checkbox" name="totalAlunosReprovadosNota"> Soma de todos os alunos reprovados por Nota <br>
+    <input type="checkbox" name="totalAlunosReprovadosFalta"> Soma de todos os alunos reprovados por Faltas <br>
+    <input type="checkbox" name="porcentagemAprovados"> Porcentagem geral de alunos aprovados <br>
+    <input type="checkbox" name="porcentagemReprovados"> Porcentagem de geral alunos reprovados <br>
+    <script>
+        var barChartData = {
+            labels: ["Total", "2016/1", "2016/2", "2017/1", "2017/2", "2018/1"],
+            datasets: []
+        }
+
+        window.onload = function () {
+            var ctx = document.getElementById("canvas").getContext('2d');
+            window.myChart = new Chart(ctx, {
+                data: barChartData,
+                type: 'bar',
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        $('input[name=totalAlunosAll]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/cursando/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Número alunos',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let a = 0;
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Número alunos") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=totalAlunosAprovados]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/aprovados/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Número de alunos aprovados',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Número de alunos aprovados") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=totalAlunosReprovados]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/reprovados/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Número de alunos reprovados',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Número de alunos reprovados") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=totalAlunosReprovadosNota]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/reprovados/nota/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Número de alunos reprovados por nota',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Número de alunos reprovados por nota") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=totalAlunosReprovadosFalta]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/reprovados/faltas/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Número de alunos reprovados por faltas',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Número de alunos reprovados por faltas") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=porcentagemAprovados]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/porcentagem/aprovados/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Porcentagem de alunos aprovados',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Porcentagem de alunos aprovados") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        $('input[name=porcentagemReprovados]').change(function () {
+            if ($(this).is(':checked')) {
+                const url = 'http://localhost:5000/api/stats/aluno/porcentagem/reprovados/all';
+                $.getJSON(url, function (result) {
+                    var newDataset = {
+                        label: 'Porcentagem de alunos reprovados',
+                        backgroundColor: randomColor(),
+                        borderColor: 'rgba(192,192,192,0.2)',
+                        borderWidth: 1,
+                        data: [result.content]
+                    };
+                    barChartData.datasets.push(newDataset);
+                    window.myChart.update();
+                });
+            } else {
+                let index;
+                for (i in barChartData.datasets) {
+                    if (barChartData.datasets[i].label === "Porcentagem de alunos reprovados") {
+                        index = Number(i);
+                        break;
+                    }
+                }
+                barChartData.datasets.splice(index, 1);
+                window.myChart.update();
+            }
+        });
+
+        function randomColor() {
+            return 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() *
+                256) + ', ' + Math.floor(Math.random() * 256) + ', 0.2)';
+        }
+    </script>
+</body>
+
+</html>
