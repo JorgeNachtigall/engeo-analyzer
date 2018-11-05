@@ -51,7 +51,7 @@
 
         $('input[name=totalAlunosAll]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/cursando/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/cursando/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número alunos',
@@ -79,7 +79,7 @@
 
         $('input[name=totalAlunosAprovados]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/aprovados/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/aprovados/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número de alunos aprovados',
@@ -106,7 +106,7 @@
 
         $('input[name=totalAlunosReprovados]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/reprovados/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/reprovados/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número de alunos reprovados',
@@ -133,7 +133,7 @@
 
         $('input[name=totalAlunosReprovadosNota]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/reprovados/nota/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/reprovados/nota/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número de alunos reprovados por nota',
@@ -160,7 +160,7 @@
 
         $('input[name=totalAlunosReprovadosFalta]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/reprovados/faltas/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/reprovados/faltas/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número de alunos reprovados por faltas',
@@ -187,7 +187,7 @@
 
         $('input[name=porcentagemAprovados]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/porcentagem/aprovados/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/porcentagem/aprovados/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Porcentagem de alunos aprovados',
@@ -214,7 +214,7 @@
 
         $('input[name=porcentagemReprovados]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'http://localhost:5000/api/stats/aluno/porcentagem/reprovados/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/porcentagem/reprovados/all';
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Porcentagem de alunos reprovados',
