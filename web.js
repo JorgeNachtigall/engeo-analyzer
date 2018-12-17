@@ -6,10 +6,10 @@ app.use(express.static('public'));
 var sql, reply;
 
 var db_config = {
-    host: 'us-cdbr-iron-east-01.cleardb.net',
-    user: 'bf3c82b107eebd',
-    password: '7c8be2db',
-    database: 'heroku_52e91f225d931d5'
+    host: '',
+    user: '',
+    password: '',
+    database: ''
 }
 var connection;
 

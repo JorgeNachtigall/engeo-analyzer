@@ -51,7 +51,7 @@
 
         $('input[name=totalAlunosAll]').change(function () {
             if ($(this).is(':checked')) {
-                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/cursando/all';
+                const url = 'https://engeo-analyzer.herokuapp.com/api/stats/aluno/cursando/all'; // if the domain change, you need to change all the url's
                 $.getJSON(url, function (result) {
                     var newDataset = {
                         label: 'Número alunos',
